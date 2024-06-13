@@ -7,9 +7,9 @@ import requests
 import psutil
 app = Flask(__name__)
 
-API_KEY = '2dq7FLVxtywZ4'
+API_KEY = 'add your api key'
 API_URL = 'https://api.co2signal.com/v1/latest'
-LOCATION = 'IN'
+LOCATION = 'add your region'
 
 def estimate_carbon_emission_api(duration):
     headers = {'auth-token': API_KEY}
