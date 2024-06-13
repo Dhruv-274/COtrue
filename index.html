@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COTrue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<style>    
+body {
+    margin: 0;
+    font-family: 'Manrope', Arial, sans-serif;
+    background-color: #f4f4f4;
+    scroll-behavior: smooth;
+  }
+  
+  header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    transition: top 0.3s;
+  }
+  
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  nav ul li {
+    margin: 0 10px;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .logo {
+    max-height: 80px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .logo:hover {
+    transform: scale(1.1);
+  }
+  
+  main {
+    padding-top: 80px;
+  }
+  
+  .content {
+    display: flex;
+    height: calc(100vh - 80px);
+  }
+  
+  .image {
+    flex: 1;
+    background: url("/demo/templates/forest.jpg") no-repeat center center/cover;
+    height: calc(100vh - 80px);
+  }
+  
+  .text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+    height: calc(100vh - 80px);
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  .text h2 {
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  
+  .text p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 10px 0;
+  }
+  
+  button {
+    background-color: #333;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    font-family: 'Manrope', Arial, sans-serif;
+  }
+  
+  button:hover {
+    background-color: #555;
+  }
+  
+  .text .logo {
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .text .logo:hover {
+    transform: scale(1.1);
+  }
+  
+  .new-section {
+    background-color: #2f6654;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  .box {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    flex: 1;
+    max-width: 300px;
+    transition: transform 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .box:hover {
+    transform: scale(1.05);
+  }
+  
+  .box i {
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  .box h3 {
+    margin: 10px 0;
+    font-size: 24px;
+  }
+  
+  .box p {
+    font-size: 16px;
+  }
+  
+  .code-analysis-section {
+    padding: 40px 20px;
+    background-color: #333;
+  }
+  
+  .analysis-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .analysis-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .analysis-header button {
+    background-color: #2f6654;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+  }
+  
+  .analysis-header button:hover {
+    background-color: #3b8d6b;
+  }
+  
+  .code-input-container, .compare-codes-container, .system-analysis-container {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #444;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .code-input-container.active, .compare-codes-container.active, .system-analysis-container.active {
+    display: flex;
+  }
+  
+  .code-input, .compare-code-input {
+    width: 100%;
+    height: 200px;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .input-actions, .compare-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .input-actions button, .compare-actions button, .system-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .input-actions .submit-btn, .system-actions .submit-btn {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .input-actions .submit-btn:hover, .system-actions .submit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .input-actions .clear-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .input-actions .clear-btn:hover {
+    background-color: #c82333;
+  }
+  
+  .compare-actions .compare-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .compare-actions .compare-btn:hover {
+    background-color: #218838;
+  }
+  
+  .results {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #444;
+    color: white;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .compare-code-input {
+    width: 48%;
+    height: 200px;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    border: none;
+    border-radius: 5px;
+  }
+</style>
+<body>
+    <header id="navbar">
+        <div class="logo">
+            <img src="/demo/templates/newlogo.png" alt="Logo" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="content">
+            <div class="image"></div>
+            <div class="text">
+                <div class="logo">
+                    <img src="/demo/templates/logocut.png" alt="Logo" class="logo">
+                </div>
+                <h2>Welcome to COTrue</h2>
+                <p>Analyze and compare your code efficiently.</p>
+                <button onclick="scrollToSection()">Get Started</button>
+            </div>
+        </div>
+        <section class="new-section">
+            <div class="box">
+                <i class="fas fa-code fa-3x"></i>
+                <h3>Code Analysis</h3>
+                <p>Analyze your code for efficiency and performance.</p>
+            </div>
+            <div class="box">
+                <i class="fas fa-exchange-alt fa-3x"></i>
+                <h3>Comparison</h3>
+                <p>Compare your code with industry standards.</p>
+            </div>
+            <div class="box">
+                <i class="fas fa-file-alt fa-3x"></i>
+                <h3>Reports</h3>
+                <p>Generate detailed analysis reports.</p>
+            </div>
+        </section>
+        <section class="code-analysis-section">
+            <div class="analysis-container">
+                <div class="analysis-header">
+                    <button onclick="toggleCodeInput()">Code Analysis</button>
+                    <button onclick="toggleCompareCodes()">Compare Two Codes</button>
+                    <button onclick="toggleSystemAnalysis()">System Analysis</button>
+                </div>
+                <div class="code-input-container" id="codeInputContainer">
+                    <textarea id="codeInput" class="code-input" placeholder="Paste your code here..."></textarea>
+                    <div class="input-actions">
+                        <button class="submit-btn" onclick="analyzeCode()">Submit</button>
+                        <button class="clear-btn" onclick="clearInput()">Clear</button>
+                    </div>
+                    <div class="results" id="resultsContainer"></div>
+                </div>
+                <div class="compare-codes-container" id="compareCodesContainer">
+                    <textarea id="codeInput1" class="compare-code-input" placeholder="Paste your first code here..."></textarea>
+                    <textarea id="codeInput2" class="compare-code-input" placeholder="Paste your second code here..."></textarea>
+                    <div class="compare-actions">
+                        <button class="compare-btn" onclick="compareCodes()">Compare</button>
+                    </div>
+                    <div class="results" id="compareResultsContainer"></div>
+                </div>
+                <div class="system-analysis-container" id="systemAnalysisContainer">
+                    <div class="system-actions">
+                        <button class="submit-btn" onclick="analyzeSystem()">Submit</button>
+                    </div>
+                    <div class="results" id="systemResultsContainer"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        function scrollToSection() {
+            document.querySelector('.new-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleCodeInput() {
+            document.getElementById('codeInputContainer').classList.toggle('active');
+            document.getElementById('compareCodesContainer').classList.remove('active');
+            document.getElementById('systemAnalysisContainer').classList.remove('active');
+        }
+
+        function toggleCompareCodes() {
+            document.getElementById('compareCodesContainer').classList.toggle('active');
+            document.getElementById('codeInputContainer').classList.remove('active');
+            document.getElementById('systemAnalysisContainer').classList.remove('active');
+        }
+
+        function toggleSystemAnalysis() {
+            document.getElementById('systemAnalysisContainer').classList.toggle('active');
+            document.getElementById('codeInputContainer').classList.remove('active');
+            document.getElementById('compareCodesContainer').classList.remove('active');
+        }
+
+        function analyzeCode() {
+            const code = document.getElementById('codeInput').value;
+            document.getElementById('resultsContainer').style.display = 'block';
+            document.getElementById('resultsContainer').innerHTML = '<p>Analyzing your code...</p>';
+
+            fetch('/run_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'single',
+                    language: 'python',
+                    code: code
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('resultsContainer').innerHTML = `<p>Error: ${data.error}</p>`;
+                } else {
+                    document.getElementById('resultsContainer').innerHTML = `
+                        <p><strong>Output:</strong></p>
+                        <pre>${data.output}</pre>
+                        <p><strong>Carbon Emission:</strong> ${data.carbonEmission} kg CO2</p>
+                    `;
+                }
+            })
+            .catch(error => {
+                document.getElementById('resultsContainer').innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        }
+
+        function clearInput() {
+            document.getElementById('codeInput').value = '';
+            document.getElementById('resultsContainer').style.display = 'none';
+        }
+
+        function compareCodes() {
+            const code1 = document.getElementById('codeInput1').value;
+            const code2 = document.getElementById('codeInput2').value;
+            document.getElementById('compareResultsContainer').style.display = 'block';
+            document.getElementById('compareResultsContainer').innerHTML = '<p>Comparing your codes...</p>';
+
+            fetch('/run_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'compare',
+                    language: 'python',  
+                    code1: code1,
+                    code2: code2
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('compareResultsContainer').innerHTML = `<p>Error: ${data.error}</p>`;
+                } else {
+                    document.getElementById('compareResultsContainer').innerHTML = `
+                        <div>
+                            <h3>Code 1:</h3>
+                            <p><strong>Output:</strong></p>
+                            <pre>${data.code1.output}</pre>
+                            <p><strong>Carbon Emission:</strong> ${data.code1.carbonEmission} kg CO2</p>
+                        </div>
+                        <div>
+                            <h3>Code 2:</h3>
+                            <p><strong>Output:</strong></p>
+                            <pre>${data.code2.output}</pre>
+                            <p><strong>Carbon Emission:</strong> ${data.code2.carbonEmission} kg CO2</p>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                document.getElementById('compareResultsContainer').innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        }
+
+        function analyzeSystem() {
+            document.getElementById('systemResultsContainer').style.display = 'block';
+            document.getElementById('systemResultsContainer').innerHTML = '<p>Analyzing your system...</p>';
+
+            fetch('/run_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'system'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('systemResultsContainer').innerHTML = `
+                    <p><strong>CPU Usage:</strong> ${data.cpuUsage}%</p>
+                    <p><strong>RAM Usage:</strong> ${data.ramUsage}%</p>
+                    <p><strong>GPU Usage:</strong> ${data.gpuUsage}%</p>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('systemResultsContainer').innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        }
+    </script>
+</body>
+</html>
